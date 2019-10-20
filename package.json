@@ -1,0 +1,21 @@
+{
+  "name": "bigquery2jsonfile",
+  "version": "1.0.0",
+  "description": "Query bigquery to generate a properly typed json file",
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/bigquery": "^4.3.0",
+    "camelcase-keys": "^6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bigquery",
+    "json",
+    "export"
+  ],
+  "author": "sakamoto_akira_ <mild7caloriemategreentea@gmail.com> (https://twitter.com/sakamoto_akira_)",
+  "license": "ISC"
+}
