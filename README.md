@@ -7,7 +7,8 @@ Do what you can't do with the gcloud/bq command.
 ## usage
 
 ```bash
-$ bigquery2jsonfile \
+$ npm install bigquery2jsonfile
+$ npx bigquery2jsonfile \
   --sql ./path/to/query.sql \
   --output ./path/to/output.json \
   --camelcase \
