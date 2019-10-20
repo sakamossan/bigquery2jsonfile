@@ -1,13 +1,13 @@
 # bigquery2jsonfile
 
-Query bigquery to generate a properly typed json file.
+Query bigquery to generate a properly typed json file.  
 Do what you can't do with the gcloud/bq command.
 
 
 ## usage
 
 ```bash
-$ bq2json.js \
+$ bigquery2jsonfile \
   --sql ./path/to/query.sql \
   --output ./path/to/output.json \
   --camelcase \
