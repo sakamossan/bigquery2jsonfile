@@ -8,6 +8,7 @@ class BigQuery2JsonFile {
     this.sql = options.sql;
     this.output = options.output;
     this.camelcase = options.camelcase;
+    this.transformFunction = options.transform || (a => a);
 
     const {project_id, scope, service_account_credential_file} = options;
     this.bigquery = new BigQuery({
@@ -27,7 +28,8 @@ class BigQuery2JsonFile {
   }
 
   transform (a) {
-    return this.camelcase ? camelcaseKeys(a) : a;
+    a = this.camelcase ? camelcaseKeys(a) : a;
+    return this.transformFunction(a)
   }
 
   load(data) {
