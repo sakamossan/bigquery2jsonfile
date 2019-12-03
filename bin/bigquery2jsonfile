@@ -4,7 +4,7 @@ const program = require('commander')
 const { BigQuery2JsonFile } = require('../index')
 
 program
-  .version('1.0.2', '-v, --version')
+  .version('1.1.2', '-v, --version')
   .option('--sql <filepath>', 'sql-file path')
   .option('--output <filepath>', 'output file path')
   .option('--project_id <projectId>', 'GCP project id')
