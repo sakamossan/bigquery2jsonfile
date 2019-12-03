@@ -18,7 +18,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "bigquery2jsonfile": "index.js"
+    "bigquery2jsonfile": "bin/bigquery2jsonfile"
   },
   "keywords": [
     "bigquery",
