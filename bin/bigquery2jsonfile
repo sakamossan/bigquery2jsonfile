@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+'use strict';
+const program = require('commander')
+const { BigQuery2JsonFile } = require('../index')
+
+program
+  .version('1.0.2', '-v, --version')
+  .option('--sql <filepath>', 'sql-file path')
+  .option('--output <filepath>', 'output file path')
+  .option('--project_id <projectId>', 'GCP project id')
+  .option('--scope [scope]', 'requesting extra oauth scopes')
+  .option('--service_account_credential_file <filepath>', 'service account credential file path')
+  .option('--camelcase', 'convert to camelcase')
+  .parse(process.argv)
+
+const {
+  sql,
+  output,
+  camelcase,
+  project_id,
+  scope,
+  service_account_credential_file,
+} = program;
+
+const bigQuery2JsonFile = new BigQuery2JsonFile({
+  sql,
+  output,
+  camelcase,
+  project_id,
+  scope,
+  service_account_credential_file,
+})
+bigQuery2JsonFile.run().catch(console.error)
