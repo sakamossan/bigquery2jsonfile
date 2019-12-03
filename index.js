@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { BigQuery } = require('@google-cloud/bigquery');
+const { Storage } = require('@google-cloud/storage');
 const camelcaseKeys = require('camelcase-keys');
 
 class BigQuery2JsonFile {
@@ -14,6 +15,10 @@ class BigQuery2JsonFile {
       credentials: require(service_account_credential_file),
       scopes: [scope],
     });
+    this.storage = new Storage({
+      projectId: project_id,
+      keyFilename: service_account_credential_file
+    })
   }
 
   extract() {
@@ -26,7 +31,23 @@ class BigQuery2JsonFile {
   }
 
   load(data) {
-    fs.writeFileSync(this.output, JSON.stringify(data))
+    const content = JSON.stringify(data)
+    if (this.output.startsWith('gs://')) {
+      const [bucketName, ...keys] = this.output.replace("gs://", "").split("/");
+      return this.storage
+        .bucket(bucketName)
+        .file(keys.join("/"))
+        .save(content, {
+          contentType: "application/json",
+        })
+    } else {
+      return new Promise((resolve, reject) =>
+        fs.writeFile(
+          this.output,
+          content,
+          err => err ? reject(err) : resolve())
+      )
+    }
   }
 
   run() {
