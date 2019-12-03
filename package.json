@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/sakamossan/bigquery2jsonfile"
   },
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Query bigquery to generate a properly typed json file",
   "main": "index.js",
   "dependencies": {
