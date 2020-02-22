@@ -1,6 +1,6 @@
 # bigquery2jsonfile
 
-Query bigquery to generate a properly typed json file or gcs object.
+Query bigquery to generate a properly typed json (to file or gcs object).
 
 
 ## usage
@@ -46,3 +46,5 @@ $ npx bigquery2jsonfile \
   --scope https://www.googleapis.com/auth/drive.readonly \
   --service_account_credential_file ./path/to/credential.json
 ```
+
+use service account passed as a `--service_account_credential_file` option for uploading
