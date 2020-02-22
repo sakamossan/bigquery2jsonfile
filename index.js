@@ -34,7 +34,9 @@ class BigQuery2JsonFile {
 
   load(data) {
     const content = JSON.stringify(data)
-    if (this.output.startsWith('gs://')) {
+    if (!this.output) {
+      process.stdout.write(content);
+    } else if (this.output.startsWith('gs://')) {
       const [bucketName, ...keys] = this.output.replace("gs://", "").split("/");
       return this.storage
         .bucket(bucketName)
