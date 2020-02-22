@@ -30,4 +30,9 @@ const bigQuery2JsonFile = new BigQuery2JsonFile({
   scope,
   service_account_credential_file,
 })
-bigQuery2JsonFile.run().catch(console.error)
+bigQuery2JsonFile
+  .run()
+  .catch(error => {
+    process.stderr.write(error.toString() + "\n");
+    process.exit(1);
+  });
