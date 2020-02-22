@@ -5,10 +5,28 @@ Query bigquery to generate a properly typed json file or gcs object.
 
 ## usage
 
-### output to localfile
+### install
 
 ```bash
 $ npm install bigquery2jsonfile
+```
+
+### output to stdout
+
+```bash
+$ npx bigquery2jsonfile \
+  --sql ./path/to/query.sql \
+  --camelcase \
+  --project_id myproj-123456 \
+  --scope https://www.googleapis.com/auth/drive.readonly \
+  --service_account_credential_file ./path/to/credential.json
+  | jq . \
+  | tee /tmp/_.json
+```
+
+### output to localfile
+
+```bash
 $ npx bigquery2jsonfile \
   --sql ./path/to/query.sql \
   --output ./path/to/output.json \
@@ -21,7 +39,6 @@ $ npx bigquery2jsonfile \
 ### output to google cloud storage 
 
 ```bash
-$ npm install bigquery2jsonfile
 $ npx bigquery2jsonfile \
   --sql ./path/to/query.sql \
   --output gs://your-bucket-name/path/to/output.json \
