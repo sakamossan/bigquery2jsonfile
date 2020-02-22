@@ -8,7 +8,7 @@ class BigQuery2JsonFile {
     this.sql = options.sql;
     this.output = options.output;
     this.camelcase = options.camelcase;
-    this.transformFunction = options.transform || (a => a);
+    this.transformFunction = options.transform || (a => a);  // option used when called from nodejs program
 
     const {project_id, scope, service_account_credential_file} = options;
     this.bigquery = new BigQuery({
@@ -22,9 +22,15 @@ class BigQuery2JsonFile {
     })
   }
 
-  extract() {
-    const sqlString = fs.readFileSync(this.sql).toString();
-    return this.bigquery.query(sqlString).then(result => this.transform(result[0]))
+  async extract() {
+    const sqlString = await (new Promise((resolve, reject) =>
+      fs.readFile(
+        this.sql,
+        (err, data) => err ? reject(err) : resolve(data.toString())
+      )
+    ));
+    const [result] = await this.bigquery.query(sqlString);
+    return result;
   }
 
   transform (a) {
@@ -55,7 +61,9 @@ class BigQuery2JsonFile {
   }
 
   run() {
-    return this.extract().then(data => this.load(data))
+    return this.extract()
+      .then(data => this.transform(data))
+      .then(data => this.load(data))
   }
 }
 
